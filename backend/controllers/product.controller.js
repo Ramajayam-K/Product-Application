@@ -17,6 +17,9 @@ export const CreateProduct=async(req,res)=>{
 
 export const DeleteProduct = async(req,res)=>{
     const {id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(400).json({success:false,message:'Id is invalid.'});
+    }
     try{
         await Product.findByIdAndDelete(id);
         return res.status(200).json({success:true,message:'Product deleted successfully.'});
@@ -36,6 +39,9 @@ export const GetAllProduct=async(req,res)=>{
 
 export const UpdateProduct=async(req,res)=>{
     const { id } = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(400).json({success:false,message:'Id is invalid.'});
+    }
     const productUpdateData=req.body;
     try{
         const UpdatedData=await Product.findByIdAndUpdate(id,productUpdateData,{new:true});
@@ -47,6 +53,9 @@ export const UpdateProduct=async(req,res)=>{
 
 export const GetSingleProduct=async(req,res)=>{
     const { id } = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(400).json({success:false,message:'Id is invalid.'});
+    }
     try{
         const GetSingleProduct=await Product.findById(id);
         return res.status(200).json({success:true,data:GetSingleProduct});

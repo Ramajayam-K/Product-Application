@@ -11,13 +11,15 @@ app.use(express.json()); // allow to handle json
 
 app.use('/api/product',ProductRouter);
 
-app.get('/',()=>{
-    return "<h1>hi</h1>";
+const PORT=process.env.PORT || 5000;
+
+app.get('/',(req,res)=>{
+    return "hi";
 })
 
 // Server 
-app.listen(5000,()=>{
+app.listen(PORT,()=>{
     connectDB();
-    console.log('Server Started : '+process.env.mongodb_url);
+    console.log('Server Started : Link : http://localhost:'+PORT+'/');
 })
 
